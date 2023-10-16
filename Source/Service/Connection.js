@@ -30,4 +30,6 @@ const GetData = async (url) => {
     }
 };
 
+
+
 export {GetData}

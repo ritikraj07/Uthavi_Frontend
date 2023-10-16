@@ -6,7 +6,7 @@ import { AddGroupToReducer } from '../Redux/Reducers/Admin'
 import { clearMember } from '../Redux/Reducers/Member'
 import Loading from '../Components/Loading'
 import { setLoadingFalse, setLoadingTrue } from '../Redux/Reducers/Loading'
-
+import notifee from '@notifee/react-native';
 
 export default function CreateGroup({navigation}) {
     const [name, setname] = useState('')
@@ -14,7 +14,8 @@ export default function CreateGroup({navigation}) {
     const [amount, setamount] = useState('')
     const [intrest, setIntrest] = useState('')
     const url = useSelector((state) => state.BaseUrl.url)
-    const admin_id = useSelector((state)=>state.Admin._id)
+    const admin_id = useSelector((state) => state.Admin._id)
+    const admin_name = useSelector((state)=>state.Admin.name)
     const dispatch = useDispatch()
 
     function createGroup() {
@@ -63,6 +64,7 @@ export default function CreateGroup({navigation}) {
         postData(data)
             .then((res) => {
                 console.log("61 from create group => ", res.data)
+                DisplayNotification('Group Create', `Hey ${admin_name}, You successfully created ${name} 🎉`) 
                 dispatch(clearMember())
                 dispatch(setGroup(res.data))
                 dispatch(AddGroupToReducer(res.data))
@@ -112,6 +114,32 @@ export default function CreateGroup({navigation}) {
         }
 
         return true
+    }
+
+    
+    async function DisplayNotification(title, body) {
+        // Request permissions (required for iOS)
+        await notifee.requestPermission()
+
+        // Create a channel (required for Android)
+        const channelId = await notifee.createChannel({
+            id: 'default',
+            name: 'Default Channel',
+        });
+
+        // Display a notification
+        await notifee.displayNotification({
+            title: title,
+            body: body,
+            android: {
+                channelId,
+                // smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.
+                // pressAction is needed if you want the notification to open the app when pressed
+                pressAction: {
+                    id: 'default',
+                },
+            },
+        });
     }
 
 
