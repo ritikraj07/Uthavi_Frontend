@@ -119,9 +119,9 @@ export default function AddMembers({navigation}) {
             <View style={{ padding: 10, width: '90%' }} >
                 <Text style={{ textAlign: 'right', color:'black' }} >Add {count}/{duration}</Text>
                 <Text style={{color:'black'}}>Name</Text>
-                <TextInput value={name} onChangeText={setName} style={styles.input} placeholder="Enter member name" />
+                <TextInput placeholderTextColor={'#8c8c8c'} value={name} onChangeText={setName} style={styles.input} placeholder="Enter member name" />
                 <Text style={{ color: 'black' }}>Phone Number</Text>
-                <TextInput value={phone_no} onChangeText={setPhone} keyboardType="number-pad" style={styles.input} placeholder="Enter member's phone number" />
+                <TextInput placeholderTextColor={'#8c8c8c'} value={phone_no} onChangeText={setPhone} keyboardType="number-pad" style={styles.input} placeholder="Enter member's phone number" />
                 
                 
             </View>
@@ -144,7 +144,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderRadius: 5,
         fontSize: 16,
-        height: 40
+        height: 40,
+        color: 'black'
     },
     button: {
         backgroundColor: '#4CAF50',

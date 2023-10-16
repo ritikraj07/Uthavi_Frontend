@@ -26,9 +26,9 @@ export default function Profile({ navigation }) {
             arr.push(
                 <View style={{
                     borderWidth: 0.2,
-                    margin: 10,
-                    borderRadius: 5,
-                    elevation: 0.1,
+                    margin: 8,
+                    borderRadius: 2,
+                    elevation: 1,
                     padding: 5
 
                 }}
@@ -39,7 +39,8 @@ export default function Profile({ navigation }) {
                         fontWeight: '600',
                         fontSize: 20,
                         marginBottom: -10,
-                        color:'black'
+                        color:'black',
+                        
                     }} >Month {duration- i}</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
 

@@ -151,17 +151,17 @@ export default function CreateGroup({navigation}) {
         <View style={{ backgroundColor: 'white', flex: 1, width: '100%', alignItems: 'center', marginTop: 20, borderTopLeftRadius: 20, borderTopRightRadius: 20 }} >
             <View style={{ padding: 10, width: '90%' }} >
                 <Text style={{color:'black'}} >Name</Text>
-                <TextInput maxLength={20} onChangeText={setname} style={styles.input} placeholder="Enter group name" />
+                <TextInput placeholderTextColor={'#8c8c8c'} maxLength={20} onChangeText={setname} style={styles.input} placeholder="Enter group name" />
                 <Text style={{ color: 'black' }} >Duration</Text>
-                <TextInput keyboardType="number-pad" value={duration} onChangeText={setduration} style={styles.input} placeholder="Enter game duration in month" />
+                <TextInput placeholderTextColor={'#8c8c8c'} keyboardType="number-pad" value={duration} onChangeText={setduration} style={styles.input} placeholder="Enter game duration in month" />
                 <Text style={{ color: 'black' }} >Number of Members</Text>
-                <TextInput editable={false} keyboardType="number-pad" value={duration}  style={styles.input} placeholder='Enter number of members' />
+                <TextInput placeholderTextColor={'#8c8c8c'} editable={false} keyboardType="number-pad" value={duration}  style={styles.input} placeholder='Enter number of members' />
                 <Text style={{ color: 'black' }} >Amount</Text>
-                <TextInput keyboardType="number-pad" onChangeText={setamount} value={amount} style={styles.input} placeholder='Enter amount ' />
+                <TextInput placeholderTextColor={'#8c8c8c'} keyboardType="number-pad" onChangeText={setamount} value={amount} style={styles.input} placeholder='Enter amount ' />
                 {/* <Text>Reminder Date</Text>
                 <TextInput style={styles.input} placeholder='Enter amount ' /> */}
                 <Text style={{color:'black'}} >Intrest Rate</Text>
-                <TextInput onChangeText={setIntrest} keyboardType="number-pad" style={styles.input} placeholder='Enter amount ' />
+                <TextInput placeholderTextColor={'#8c8c8c'} onChangeText={setIntrest} keyboardType="number-pad" style={styles.input} placeholder='Enter amount ' />
                 <View style={{ width: '90%', flexDirection:'row', justifyContent:"space-between" }} >
                     <TouchableOpacity style={styles.button} onPress={()=>{createGroup()}} >
                         <Text style={styles.text}>Create Group</Text>
@@ -188,6 +188,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         fontSize: 16,
         height: 40,
+        color: 'black'
 
     },
     button: {
