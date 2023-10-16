@@ -1,6 +1,6 @@
-import { } from 'react'
+import {useEffect } from 'react'
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native'
-
+import { Notifee } from '@notifee/react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -11,15 +11,91 @@ import PostData from '../Service/Connection';
 import { changeStatus } from '../Redux/Reducers/Member';
 import Loading from '../Components/Loading';
 import { setLoadingFalse, setLoadingTrue } from '../Redux/Reducers/Loading';
+import notifee from '@notifee/react-native';
 
 export default function Dashboard({ navigation }) {
     let dispatch = useDispatch()
+    let adminName = useSelector((state)=>state.Admin.name)
     let { createdAt, amount, name, intrest_rate, duration} = useSelector((state) => state.Group)
     let members = useSelector((state) => state.Member.members)
     let url = useSelector((state)=>state.BaseUrl.url)
-    let mem = useSelector((state)=>state.Member.members)
+    let mem = useSelector((state) => state.Member.members)
+    let m = +(+calculateDays(createdAt).toFixed(0) / 30).toFixed(0) + 1
 
     
+
+    useEffect(() => {
+        scheduleMonthlyNotification()
+            .then((res) => { })
+            .catch((err) => { })
+        
+        if (m == 10) {
+            DisplayNotification('Monthly Reminder', `Hi, ${adminName} Collect money from every one`)
+        }
+    }, [])
+
+    
+    const scheduleMonthlyNotification = async () => {
+        const nextDate = new Date();
+        nextDate.setDate(10);
+        nextDate.setHours(10, 0, 0, 0);
+        console.log(nextDate)
+        await Notifee.createChannel({
+            id: 'default',
+            name: 'Default Channel',
+        });
+
+        await Notifee.scheduleNotification({
+            title: 'Monthly Reminder',
+            body: `Hi, ${adminName} Collect money from every one`,
+            android: {
+                channelId: 'default',
+            },
+            ios: {
+                categoryId: 'general',
+            },
+            schedule: {
+                at: nextDate.getTime(),
+                repeat: {
+                    every: 'month',
+                },
+            },
+        });
+    };
+
+  
+    
+
+
+    async function DisplayNotification(title, body) {
+        // Request permissions (required for iOS)
+        await notifee.requestPermission()
+
+        // Create a channel (required for Android)
+        const channelId = await notifee.createChannel({
+            id: 'default',
+            name: 'Default Channel',
+        });
+
+        // Display a notification
+        await notifee.displayNotification({
+            title: title,
+            body: body,
+            android: {
+                channelId,
+                // smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.
+                // pressAction is needed if you want the notification to open the app when pressed
+                pressAction: {
+                    id: 'default',
+                },
+            },
+        });
+    }
+
+
+
+
+
 
 
 
@@ -34,14 +110,15 @@ export default function Dashboard({ navigation }) {
 
         PostData(url + "member/update", data)
             .then((res) => { 
-
+                dispatch(setLoadingFalse())
                 console.log("res from change status Dashboard", res)
                 
             })
             .catch((error) => {
-            console.log("error from post Data Dashboard =>", error)
+                console.log("error from post Data Dashboard =>", error)
+                dispatch(setLoadingFalse())
             })
-        dispatch(setLoadingFalse())
+        
     }
 
 
@@ -70,7 +147,7 @@ export default function Dashboard({ navigation }) {
 
 
 
-    let m = +(+calculateDays(createdAt).toFixed(0)/30).toFixed(0) + 1
+    
     
 
 
@@ -87,8 +164,8 @@ export default function Dashboard({ navigation }) {
     function CreateMemberTab({ member }) {
         
         let isPaid = member.history[m.toString()]
-        console.log("\n\n\n\n\n ", "ispaid ==>", isPaid, "\n\n\n\n", "m \n\n\n", m, "\n\n\n" )
-        console.log(member.name, isPaid, member._id)
+        // console.log("\n\n\n\n\n ", "ispaid ==>", isPaid, "\n\n\n\n", "m \n\n\n", m, "\n\n\n" )
+        // console.log(member.name, isPaid, member._id)
 
 
         return <View style={{

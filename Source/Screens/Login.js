@@ -108,6 +108,7 @@ export default function Login({ navigation }) {
                     style={styles.input}
                     placeholder="Enter your email"
                     onChangeText={setEmail}
+                    placeholderTextColor={'#8c8c8c'}
                 />
                 <Text style={{ color: 'black' }} >Password</Text>
                 <TextInput
@@ -115,6 +116,7 @@ export default function Login({ navigation }) {
                     style={styles.input}
                     placeholder="Enter your password"
                     onChangeText={setPassword}
+                    placeholderTextColor={'#8c8c8c'}
                 />
 
                 <TouchableOpacity style={styles.button} onPress={()=>login()} >
