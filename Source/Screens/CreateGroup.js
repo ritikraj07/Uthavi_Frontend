@@ -15,7 +15,9 @@ export default function CreateGroup({navigation}) {
     const [intrest, setIntrest] = useState('')
     const url = useSelector((state) => state.BaseUrl.url)
     const admin_id = useSelector((state) => state.Admin._id)
-    const admin_name = useSelector((state)=>state.Admin.name)
+    const admin_name = useSelector((state) => state.Admin.name)
+    const isloading = useSelector((state) => state.Loading.value)
+    
     const dispatch = useDispatch()
 
     function createGroup() {
@@ -84,6 +86,9 @@ export default function CreateGroup({navigation}) {
   
 
     function checkInput() {
+        if (isloading) {
+            return false
+        }
         if (name.length < 1) {
             ToastAndroid.show('Enter group name', ToastAndroid.SHORT);
             return false
@@ -104,7 +109,7 @@ export default function CreateGroup({navigation}) {
             ToastAndroid.show('Amount must > 100', ToastAndroid.SHORT);
             return false
         }
-        if (intrest <= 0.2) {
+        if (intrest < 0.2) {
             ToastAndroid.show('too low intrest rate', ToastAndroid.SHORT);
             return false
         }

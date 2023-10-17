@@ -254,7 +254,7 @@ export default function Dashboard({ navigation }) {
                     <Text style={styles.infoText}>{name}</Text>
                     <Text style={styles.infoText}>{intrest_rate} %</Text>
                     <Text style={styles.infoText}>{amount}</Text>
-                    <Text style={styles.infoText}>{duration} Month</Text>
+                    <Text style={styles.infoText}>{duration} Months</Text>
                     <Text style={styles.infoText}>{formatDate(createdAt)}</Text>
                 </View>
             </View>

@@ -35,7 +35,27 @@ export default function Lottery({ navigation }) {
 
         return diffDays;
     }
-    
+    console.log("day no ", (typeof +Number(calculateDaysFromToday(updatedAt) / 30).toFixed(0)))
+
+    function getPoolPrize() {
+        let total = duration * amount
+        let pr = 0;
+        let pro = 0;
+        let n = duration - (+Number(calculateDaysFromToday(updatedAt) / 30).toFixed(0))
+        for (var i = 0; i < n; i++) {
+            
+
+            if (i == 0) {
+                pr = (total * ((100 - (intrest_rate * 0)) / 100)).toFixed(0) // user profit
+                pro = total - pr
+            } else {
+                pr = (total * ((100 - (intrest_rate)) / 100)).toFixed(0) // user profit
+                pro = duration * amount - pr
+                total = pr
+            }
+        }
+        return pr
+    }
 
 
     function returnWinner() {
@@ -107,7 +127,7 @@ export default function Lottery({ navigation }) {
                         fontWeight: '800',
                         color: "purple"
                     }}
-                >{prize} </Text>
+                >{getPoolPrize()} </Text>
                 <TimerComponent initialDate={updatedAt} />
                 <TouchableOpacity
                     style={{ width: '90%', backgroundColor: 'purple', borderRadius: 10 }}

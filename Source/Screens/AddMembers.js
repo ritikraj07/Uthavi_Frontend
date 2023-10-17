@@ -10,7 +10,8 @@ export default function AddMembers({navigation}) {
     const [phone_no, setPhone] = useState('')
     let { duration, _id } = useSelector((state) => state.Group)
     let group_name = useSelector((state)=>state.Group.name)
-    let [count, setCount] = useState(useSelector((state) => state?.Member?.members?.length+1) || 1)
+    let [count, setCount] = useState(useSelector((state) => state?.Member?.members?.length + 1) || 1)
+    const isloading = useSelector((state) => state.Loading.value)
     // let count = 0
     // change
     const url = useSelector((state) => state.BaseUrl.url)
@@ -18,7 +19,9 @@ export default function AddMembers({navigation}) {
 
 
     function addMember() {
-       
+        if (isloading) {
+            return false
+        }
         if (name.length < 1) {
             ToastAndroid.show('Enter member name', ToastAndroid.SHORT);
             return false

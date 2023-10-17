@@ -18,11 +18,20 @@ export default function Profile({ navigation }) {
     }
     function MyProfit() {
         let arr = []
-        profit = 0
+        let total = duration * amount
         for (var i = 0; i < duration; i++){
-            let pr = (duration * amount * (100 - (intrest_rate * i)) / 100).toFixed(0)
-            let pro = duration * amount - (duration * amount * (100 - (intrest_rate * i)) / 100).toFixed(0)
-            
+            let pr = 0;
+            pro = 0;
+            if (i == 0) {
+                pr = (total * ((100 - (intrest_rate*0)) / 100)).toFixed(0) // user profit
+                pro =total - pr
+            } else {
+                pr = (total * ((100 - (intrest_rate)) / 100)).toFixed(0) // user profit
+                pro = duration*amount - pr
+                total = pr
+            }
+           
+            // 
             arr.push(
                 <View style={{
                     borderWidth: 0.2,
